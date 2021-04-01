@@ -29,3 +29,29 @@ Also, a Swagger with the endpoints specifications for the operations is provided
 ## Complete the challenge
 
 To complete the challenge, you must send us the link to your forked repository with the code of your application. Please, provide instructions to execute the code.
+
+# Running the project
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
