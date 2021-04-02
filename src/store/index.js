@@ -137,28 +137,34 @@ const store = new Vuex.Store({
 
   ////////////////////////////////////////
   ////////////////////////// DELETE ASSET
-    async deleteAsset(context, data) {
-      if(data.type == "product"){
+    async deleteAsset(context, datas) {
+      if(datas.type == "product"){
         return http.delete("/invoke/deleteAsset", {
-          "key": {
-            "@assetType": "product",
-            "code": data.code
+          data: {
+            "key": {
+              "@assetType": "product",
+              "code": datas.code
+            }
           }
         });
       }
-      else if(data.type == "seller"){
+      else if(datas.type == "seller"){
         return http.delete("/invoke/deleteAsset", {
-          "key": {
-            "@assetType": "seller",
-            "cnpj": data.code
+          data: {
+            "key": {
+              "@assetType": "seller",
+              "cnpj": datas.code
+            }
           }
         });
       }
       else{
         return http.delete("/invoke/deleteAsset", {
-          "key": {
-            "@assetType": "category",
-            "name": data.code
+          data: {
+            "key": {
+              "@assetType": "category",
+              "name": datas.code
+            }
           }
         });
       }

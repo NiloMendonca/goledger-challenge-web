@@ -1,116 +1,108 @@
 <template>
 	<section>
-    <v-hover v-slot="{ hover }">
-      <v-card
-        :elevation="hover ? 4 : 0"
-        :class="[
-          getSideColor(),
-          {
-            'rounded-lg': true,
-            'on-hover': hover,
-          },
-        ]"
-        outlined
-        width="100%"
-        @click="openCourse()"
-      >
-        <v-app-bar class="toolbar" color="transparent" dense flat>
-          <v-toolbar-title :class="getCampusColor(name)">{{
-            name
-          }}</v-toolbar-title>
-
-          <v-spacer />
-
-          <v-toolbar-title> {{ name }} créditos </v-toolbar-title>
-        </v-app-bar>
-
-        <v-card-title class="title pt-0">{{ name }}</v-card-title>
-
-        <v-card-text class="department">{{ name }}</v-card-text>
-
-        <v-card-actions class="py-0 pl-0">
-         
-
-          <v-spacer></v-spacer>
-          <slot></slot>
-        </v-card-actions>
-      </v-card>
-    </v-hover>
+    <v-card
+      width="200px"
+      height="200px"
+    >
+      <v-card-title class="cardTitle">
+        <img @click="$refs.ModalEditProducts.openModal(code, 'view')" src="../assets/sale.jpg" class="cardImg"/>
+      </v-card-title>
+      <v-card-text class="cardText">
+        <p class="pNameProduct">{{ name }}</p>
+        <p class="pPriceProduct">{{ price }}</p>
+      </v-card-text>
+      <v-card-actions class="cardActions">
+        <button id="buttonEdit" @click="$refs.ModalEditProducts.openModal(code, 'edit')">Edit</button>
+        <button id="buttonDelete" @click="deleteProduct">Delete</button>
+      </v-card-actions>
+    </v-card>
+    
+    <slot>
+      <ModalEditProducts ref="ModalEditProducts" />
+    </slot>
   </section>
 </template>
 
 <script>
+import ModalEditProducts from "./ModalEditProducts";
+
 export default {
   name: "Card",
+  components: {
+    ModalEditProducts,
+  },
   props: {
     name: String,
+    code: String,
+    price: Number,
+    cnpj: String,
 	},
   methods: {
-    getCampusColor(campus) {
-      switch (campus) {
-        case "Darcy Ribeiro":
-          return "blue-grey lighten-5";
-        case "FCE":
-          return "light-blue lighten-4";
-        case "FGA":
-          return "light-green lighten-4";
-        case "FUP":
-          return "amber lighten-4";
-        default:
-          return "";
-      }
-    },
-    openCourse() {
-    },
-    getSideColor() {
-      if (this.name == "a") {
-        return "concluded";
-      } else if (this.name == "b") {
-        return "suggested";
-      } else if (this.name == "c") {
-        return "unavailable";
-      }
+    deleteProduct(){
+      this.$store.dispatch("deleteAsset", {type:"product", code:this.code}).then(res =>{
+        if(res.status == 200)
+          this.$emit('event');
+      });
     },
   },
 }
 </script>
 
 <style scoped>
-.toolbar * {
-  font-weight: 300 !important;
-  font-size: 12px !important;
+.cardTitle {
+    
 }
-
-.title {
-  font-size: 16px !important;
-  font-weight: 400 !important;
-  line-height: 1.1 !important;
-}
-
-.department {
-  font-size: 14px !important;
-  font-weight: 300 !important;
-  line-height: 1.1 !important;
-}
-
-.v-card__text,
-.v-card__title {
-  word-break: break-word;
-}
-
-.concluded {
-  border-left: 5px solid gray !important;
-}
-
-.suggested {
-  border-left: 5px solid green !important;
-}
-
-.available {
-  border-left: 5px solid blue !important;
-}
-
-.unavailable {
-  border-left: 5px solid red !important;
-}
+    .cardImg {
+      width: 200px;
+      height: 100px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+  .cardText {
+    padding-top: 8px;
+    color: #2c3e50;
+    text-align: center;
+    height: 60px;
+    width: 100%;
+    position: absolute;
+    top: 100px;
+  }
+    .pNameProduct {
+      font-size: 18px;
+      margin: 0px;
+      font-weight: bolder;
+      color: #2c3e50;
+    }
+    .pPriceProduct {
+      font-size: 14px;
+      margin: 8px 0px 0px 0px;
+      color: #2c3e50;
+      background-color: green;
+      border-radius: 10px;
+    }
+  .cardActions {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+  }
+    #buttonEdit {
+      width: 70px;
+      height: 20px;
+      border-radius: 10px;
+      color: green;
+      border: 1px solid green;
+      margin: 5px;
+    }
+    #buttonDelete {
+      width: 70px;
+      height: 20px;
+      border-radius: 10px;
+      color: red;
+      border: 1px solid red;
+      margin: 5px;
+    }
 </style>
