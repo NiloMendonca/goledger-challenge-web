@@ -247,70 +247,73 @@ export default {
   text-align: center;
   width: 100%;
 }
-.tdCategoriesTitle {
-  text-align: left;
-  border-bottom: 1px solid rgba(44,62,80,.2);
-}
-.tdCategoriesButtons {
-  text-align: left;
-  position: relative;
-}
-.spanTdCategoriesButtons {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-}
-.inputProducts {
-  width: 200px;
-  height: 35px;
-  border-radius: 5px;
-  border: 1px solid #2c3e50;
-  font-size: 15px;
-  margin: 20px 2px 2px 2px;
-  padding: 4px;
-}
-.inputProducts:focus {
-  border: 2px solid black;
-  box-shadow: 0 0 0 0;
-  outline: 0;
-}
-#tableCategories {
-  width: 200px;
-  position: relative;
-  left: 50%;
-  margin-left: -100px;
-  margin-top: 10px;
-}
-  .tableTitle {
-    text-align: center;
+  .tdCategoriesTitle {
+    text-align: left;
+    border-bottom: 1px solid rgba(44,62,80,.2);
   }
-    .tableOptions {
-      text-align: left;
+  .tdCategoriesButtons {
+    text-align: left;
+    position: relative;
+  }
+    .spanTdCategoriesButtons {
+      position: absolute;
+      left: 0px;
+      top: 0px;
     }
-      .checkbox {
-        all: unset;
-        width: 11px;
-        height: 11px;
-        display: inline-block;
-        border-radius: 2px;
-        border: 1px solid #2c3e50;
-        margin: 4px 0px 0px 0px;
+
+  .inputProducts {
+    width: 200px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #2c3e50;
+    font-size: 15px;
+    margin: 20px 2px 2px 2px;
+    padding: 4px;
+  }
+    .inputProducts:focus {
+      border: 2px solid black;
+      box-shadow: 0 0 0 0;
+      outline: 0;
+    }
+
+  #tableCategories {
+    width: 200px;
+    position: relative;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: 10px;
+  }
+    .tableTitle {
+      text-align: center;
+    }
+      .tableOptions {
+        text-align: left;
       }
-      .checkbox:checked{
-        background-color: #6300ff;
-      }
-#buttonFooter {
-  width: 70px;
-  height: 30px;
-  color: #6300ff;
-  font-weight: bolder;
-  border-radius: 30px;
-}
-button:focus {
-  border: 2px solid black;
-  box-shadow: 0 0 0 0;
-  outline: 0;
-}
+        .checkbox {
+          all: unset;
+          width: 11px;
+          height: 11px;
+          display: inline-block;
+          border-radius: 2px;
+          border: 1px solid #2c3e50;
+          margin: 4px 0px 0px 0px;
+        }
+          .checkbox:checked{
+            background-color: #6300ff;
+          }
+          
+  #buttonFooter {
+    width: 70px;
+    height: 30px;
+    color: #6300ff;
+    font-weight: bolder;
+    border-radius: 30px;
+  }
+    button:focus {
+      border: 2px solid black;
+      box-shadow: 0 0 0 0;
+      outline: 0;
+    }
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;

@@ -134,57 +134,60 @@ h1 {
   text-align: center;
   width: 100%;
 }
-.tdCategoriesTitle {
-  text-align: left;
-  overflow: hidden;
-  padding-left: 10px;
-}
-.tdCategoriesButtons {
-  text-align: right;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(44,62,80,.2);
-  color: #2c3e50;
-}
-#inputNewCategory {
-  width: 200px;
-  height: 35px;
-  border-radius: 5px;
-  border: 1px solid #2c3e50;
-  font-size: 15px;
-  margin: 20px 2px 2px 2px;
-  padding: 4px;
-}
-#inputNewCategory:focus {
-  border: 2px solid black;
-  box-shadow: 0 0 0 0;
-  outline: 0;
-}
-#buttonNewCategory {
-  width: 50px;
-  height: 25px;
-  border-radius: 25px;
-  background-color: #2c3e50;
-  color: white;
-  font-size: 15px;
-  margin: 5px;  
-}
-#buttonNewCategory:focus {
-  border: 2px solid black;
-  box-shadow: 0 0 0 0;
-  outline: 0;
-}
-#buttonClose {
-  width: 100px;
-  height: 30px;
-  color: #6300ff;
-  border-radius: 30px;
-  font-weight: bolder;
-}
-#buttonClose:focus {
-  border: 2px solid black;
-  box-shadow: 0 0 0 0;
-  outline: 0;
-}
+  .tdCategoriesTitle {
+    text-align: left;
+    overflow: hidden;
+    padding-left: 10px;
+  }
+  .tdCategoriesButtons {
+    text-align: right;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(44,62,80,.2);
+    color: #2c3e50;
+  }
+  
+  #inputNewCategory {
+    width: 200px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #2c3e50;
+    font-size: 15px;
+    margin: 20px 2px 2px 2px;
+    padding: 4px;
+  }
+    #inputNewCategory:focus {
+      border: 2px solid black;
+      box-shadow: 0 0 0 0;
+      outline: 0;
+    }
+
+  #buttonNewCategory {
+    width: 50px;
+    height: 25px;
+    border-radius: 25px;
+    background-color: #2c3e50;
+    color: white;
+    font-size: 15px;
+    margin: 5px;  
+  }
+    #buttonNewCategory:focus {
+      border: 2px solid black;
+      box-shadow: 0 0 0 0;
+      outline: 0;
+    }
+
+  #buttonClose {
+    width: 100px;
+    height: 30px;
+    color: #6300ff;
+    border-radius: 30px;
+    font-weight: bolder;
+  }
+    #buttonClose:focus {
+      border: 2px solid black;
+      box-shadow: 0 0 0 0;
+      outline: 0;
+    }
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;

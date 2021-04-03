@@ -69,65 +69,72 @@ export default {
 </script>
 
 <style scoped>
-.cardTitle {
-    
+.cardSvg {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(100,100,100,.1);
 }
-    .cardSvg {
-      position: absolute;
-      left: 0px;
-      top: 0px;
-    }
-  .cardText {
-    padding-top: 8px;
+.cardSvg:hover {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(100,100,100,.2);
+  cursor:pointer;
+}
+
+.cardText {
+  padding-top: 8px;
+  color: #2c3e50;
+  text-align: center;
+  height: 60px;
+  width: 100%;
+  position: absolute;
+  top: 100px;
+}
+  .pNameProduct {
+    font-size: 18px;
+    margin: 0px;
+    font-weight: bolder;
+    color: #6300ff;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+  }
+  .divPriceProduct {
+    font-size: 15px;
+    margin: 8px 0px 0px 0px;
+    color: #006400;
+    background-color: #98FB98;
+    border-radius: 10px;
+    font-weight: bolder;
+    display:inline-block;
+    padding: 0px 10px 0px 10px;
+  }
+
+.cardActions {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 30px;
+}
+  #buttonEdit {
+    width: 30px;
+    height: 20px;
     color: #2c3e50;
-    text-align: center;
-    height: 60px;
-    width: 100%;
+    margin: 5px;
+    left: 50%;
+    margin-left: -35px;
     position: absolute;
-    top: 100px;
   }
-    .pNameProduct {
-      font-size: 18px;
-      margin: 0px;
-      font-weight: bolder;
-      color: #6300ff;
-      white-space: nowrap;
-      width: 100%;
-      overflow: hidden;
-    }
-    .divPriceProduct {
-      font-size: 15px;
-      margin: 8px 0px 0px 0px;
-      color: #006400;
-      background-color: #98FB98;
-      border-radius: 10px;
-      font-weight: bolder;
-      display:inline-block;
-      padding: 0px 10px 0px 10px;
-    }
-  .cardActions {
+  #buttonDelete {
+    width: 30px;
+    height: 20px;
+    color: #2c3e50;
+    margin: 5px;
+    left: 50%;
+    margin-left: 5px;
     position: absolute;
-    left: 0px;
-    bottom: 0px;
-    width: 100%;
-    height: 30px;
   }
-    #buttonEdit {
-      width: 30px;
-      height: 20px;
-      color: #2c3e50;
-      margin: 5px;
-      left: 50%;
-      margin-left: -35px;
-      position: absolute;
-    }
-    #buttonDelete {
-      width: 30px;
-      height: 20px;
-      color: #2c3e50;
-      margin: 5px;
-      left: 50%;
-      margin-left: 5px;
-      position: absolute;
-    }
 </style>
