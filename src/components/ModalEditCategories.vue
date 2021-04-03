@@ -11,19 +11,17 @@
         <div class="modalBody">
           <table>
             <tr v-for="category of categories" :key="category.name">
-              <td class="tdCategoriesTitle">
-                {{ category.name }}
-              </td>
               <td class="tdCategoriesButtons">
                 <button @click="deleteCategory(category.name)"><i class="fas fa-trash-alt"></i></button>
+              </td>
+              <td class="tdCategoriesTitle">
+                {{ category.name }}
               </td>
             </tr>
           </table>
           <span>
-            <input id="inputNewCategory" type="text" v-model="name" placeholder="Name"/>
-            <button id="buttonNewCategory" @click="createCategory"><i class="fas fa-plus-circle"></i></button><br>
-            <span id="resGreen" v-if="res=='Sucess'">{{ res }}</span>
-            <span id="resRed" v-if="res=='Erro'">{{ res }}</span>
+            <input id="inputNewCategory" type="text" v-model="name" placeholder="Name"/><br>
+            <button id="buttonNewCategory" @click="createCategory">Add</button>
           </span>
         </div>
 
@@ -37,13 +35,12 @@
 
 <script>
 export default {
-  name: "ModalEditCategory",
+  name: "ModalEditCategories",
   data() {
     return {
       show: false,
       categories: [],
       name: "",
-      res: "",
     };
   },
   mounted(){
@@ -53,20 +50,14 @@ export default {
     deleteCategory(name){
       this.$store.dispatch("deleteAsset", {type:"category", code:name}).then(res =>{
         if(res.status == 200)
-          this.res = "Sucess";
-        else
-          this.res = "Erro";
-        this.getCategories();
+          this.getCategories();
       });
     },
     createCategory(){
       this.$store.dispatch("postCreateAssetCategory", {name:this.name}).then(res =>{
         if(res.status == 200)
-          this.res = "Sucess";
-        else
-          this.res = "Erro";
+          this.getCategories();
         this.name = "";
-        this.getCategories();
       });
     },
     getCategories(){
@@ -75,12 +66,11 @@ export default {
       });
     },
     closeModal() {
+      this.$emit('event');
       this.show = false;
-      document.querySelector("body").classList.remove("overflow-hidden");
     },
     openModal() {
       this.show = true;
-      document.querySelector("body").classList.add("overflow-hidden");
     }
   }
 };
@@ -116,6 +106,7 @@ export default {
     flex-direction: column;
     border-radius: 5px;
     z-index: 2;
+    padding: 0px 15px 0px 15px;
     @media screen and (max-width: 992px) {
       width: 90%;
     }
@@ -136,6 +127,7 @@ export default {
   }
   &Footer {
     padding: 10px 20px 20px;
+    text-align: right;
   }
 }
 h1 {
@@ -143,13 +135,15 @@ h1 {
   width: 100%;
 }
 .tdCategoriesTitle {
-  text-align: center;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(44,62,80,.2);
-}
-.tdCategoriesButtons {
   text-align: left;
   overflow: hidden;
+  padding-left: 10px;
+}
+.tdCategoriesButtons {
+  text-align: right;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(44,62,80,.2);
+  color: #2c3e50;
 }
 #inputNewCategory {
   width: 200px;
@@ -166,8 +160,8 @@ h1 {
   outline: 0;
 }
 #buttonNewCategory {
-  width: 35px;
-  height: 35px;
+  width: 50px;
+  height: 25px;
   border-radius: 25px;
   background-color: #2c3e50;
   color: white;
@@ -179,24 +173,12 @@ h1 {
   box-shadow: 0 0 0 0;
   outline: 0;
 }
-#resGreen {
-  font-size: 10px;
-  width: 100%;
-  text-align: center;
-  color: green;
-}
-#resRed {
-  font-size: 10px;
-  width: 100%;
-  text-align: center;
-  color: red;  
-}
 #buttonClose {
   width: 100px;
   height: 30px;
-  color: red;
-  border: 1px solid red;
+  color: #6300ff;
   border-radius: 30px;
+  font-weight: bolder;
 }
 #buttonClose:focus {
   border: 2px solid black;

@@ -1,12 +1,11 @@
 <template>
-<!-- 
-- Editar produto em modal
-- Delete produto em modal
- -->
+<!--
+- filtrar select com categoria na pagina inicial
+-->
   <v-app id="main">
     <section>
       <div id="app">
-        <h1>Blockchain</h1>
+        <h1>Block<span id="blockchain">chain</span></h1>
         <select id="select" v-model="selectedCategory">
           <option value="" selected>All</option>
           <option v-for="category of categories" :key="category.name" value="category.name">
@@ -14,13 +13,13 @@
           </option>
         </select>
         <br>
-        <button id="editCategory" @click="$refs.ModalEditCategory.openModal()">Edit</button>
+        <button id="editCategory" @click="$refs.ModalEditCategories.openModal()">Edit</button>
       </div>
     </section>
     
     <v-container class="my-5">
       <v-layout row wrap justify-center>
-        <v-flex xs12 md2 id="sellers">
+        <v-flex xs12 md3 id="sellers">
           <table id="tableSellers">
             <tr>
               <td class="tdSellersTitle">
@@ -32,7 +31,7 @@
             </tr>
             <tr v-for="(seller, i) of sellers" :key="seller.cnpj">
               <td class="tdSellersTitle">
-                <input type="checkbox" :checked="checkedSellers[i]" v-model="checkedSellers[i]">
+                <input class="checkbox" type="checkbox" :checked="checkedSellers[i]" v-model="checkedSellers[i]">
                 {{ seller.name }}
               </td>
               <td class="tdSellersButtons">
@@ -44,33 +43,27 @@
           </table>
         </v-flex>
 
-        <v-flex xs12 md10 id="products">
-          <h3>Products found</h3>
-          <span v-for="product of products" :key="product.code">
-            <Card class="cardProduct" @event="handlerProducts" v-if="selectedCategory == product.category || selectedCategory == ''" :name="product.name" 
-                                                              :code="product.code"
-                                                              :price="product.price"
-                                                              :cnpj="product.soldBy.cnpj"
-            />
+        <v-flex xs12 md9 id="products">
+          <h3>Products found</h3><br>
+          <span v-for="product of productsCategory" :key="product.code">
+            <Card class="cardProduct" @event="handlerProducts" v-if="selectedCategory == product.category || selectedCategory == ''" :name="product.name" :code="product.code" :price="product.price" :cnpj="product.soldBy.cnpj"/>
           </span>
 
-          <h3>Other products</h3>
-          <span v-for="product of products" :key="product.code">
-            <Card class="cardProduct" @event="handlerProducts" v-if="selectedCategory != product.category && selectedCategory != ''" :name="product.name" 
-                                                              :code="product.code"
-                                                              :price="product.price"
-                                                              :cnpj="product.soldBy.cnpj"
-            />
+          <h3>Other products</h3><br>
+          <span v-for="product of productsOther" :key="product.code">
+            <Card class="cardProduct" @event="handlerProducts" v-if="selectedCategory != product.category && selectedCategory != ''" :name="product.name" :code="product.code" :price="product.price" :cnpj="product.soldBy.cnpj" />
           </span>
 
-          <button @click="$refs.ModalEditProducts.openModal('', 'create')"><i class="fas fa-plus-circle"></i></button>
+          <div id="addProduct">
+            <button @click="$refs.ModalEditProducts.openModal('', 'create')"><i class="fas fa-plus-circle"></i></button>
+          </div>
         </v-flex>
       </v-layout>
     </v-container>
 
     <div id="modals">
       <ModalEditSellers ref="ModalEditSellers" @event="handlerSellers" />
-      <ModalEditCategory ref="ModalEditCategory" />
+      <ModalEditCategories ref="ModalEditCategories" @event="handlerCategories" />
       <ModalEditProducts ref="ModalEditProducts" @event="handlerProducts" />
     </div>
   </v-app>
@@ -80,7 +73,7 @@
 import Card from "./components/Card";
 import ModalEditSellers from "./components/ModalEditSellers";
 import ModalEditProducts from "./components/ModalEditProducts";
-import ModalEditCategory from "./components/ModalEditCategory";
+import ModalEditCategories from "./components/ModalEditCategories";
 
 export default {
   name: "App",
@@ -88,15 +81,16 @@ export default {
     Card,
     ModalEditSellers,
     ModalEditProducts,
-    ModalEditCategory,
+    ModalEditCategories,
   },
   data() {
     return {
-      products: [],
+      productsCategory: [],
+      productsOther: [],
       sellers: [],
       categories: [],
       checkedSellers: [],
-      selectedCategory: "",
+      selectedCategory: ""
     }
   },
   mounted(){
@@ -105,8 +99,16 @@ export default {
     this.showProducts();
   },
   methods: {
-    handlerProducts(){
-      this.showProducts();
+    handlerProducts(params){
+      if(params[1] && params[0]){
+        this.$refs.ModalEditProducts.openModal(params[1], params[0]);
+      }
+      else{
+        this.showProducts();
+      }
+    },
+    handlerCategories() {
+      this.showCategories();
     },
     handlerSellers() {
       this.showSellers();
@@ -119,7 +121,12 @@ export default {
     },
     showProducts(){
       this.$store.dispatch("postSearchAsset", {type:"product"}).then(res =>{
-        this.products = JSON.parse(JSON.stringify(res.data.result));
+        this.productsCategory = JSON.parse(JSON.stringify(res.data.result));
+        this.productsOther = JSON.parse(JSON.stringify(res.data.result));
+        for(var i=0; i<this.productsOther.length; i++){
+          console.log(this.productsOther[i].name);
+          console.log(this.productsOther[i].categories);
+        }
       });
     },
     showSellers(){
@@ -154,6 +161,11 @@ h1 {
   font-weight: 600;
   text-align: center;
   margin: 30px 10px 10px 10px;
+}
+#blockchain {
+  background-color: #6300ff;
+  color: white;
+  border-radius: 8px;
 }
 #app {
   max-width: 30em;
@@ -205,7 +217,7 @@ h1 {
   padding: 10px;
 }
   #tableSellers {
-    width: 180px;
+    width: 205px;
     position: relative;
     left: 50%;
     margin-left: -90px;
@@ -213,7 +225,22 @@ h1 {
     .tdSellersTitle {
       overflow: hidden;
       text-align: left;
+      white-space: nowrap;
+      max-width: 130px;
+      height: 20px;
     }
+      .checkbox {
+        all: unset;
+        width: 11px;
+        height: 11px;
+        display: inline-block;
+        border-radius: 2px;
+        border: 1px solid #2c3e50;
+        margin: 4px 0px 0px 0px;
+      }
+      .checkbox:checked{
+        background-color: #6300ff;
+      }
     .tdSellersButtons {
       overflow: hidden;
       text-align: right;
@@ -221,8 +248,15 @@ h1 {
       .buttonSeller {
         margin: 3px;
       }
+
 #products{
   padding: 10px;
+}
+@media(max-width: 442px){
+  #products{
+    padding: 10px;
+    text-align: center;
+  }
 }
 .cardProduct {
   display: inline-block;
@@ -230,5 +264,19 @@ h1 {
   border: 1px solid #2c3e50;
   border-radius: 8px;
   overflow: hidden;
+}
+.cardProduct:hover {
+  box-shadow: 1px 1px 5px rgba(0,0,0,.5);
+}
+#addProduct {
+  width: 200px;
+  height: 200px;
+  background-color: #2c3e50;
+  color: white;
+  border-radius: 8px;
+  font-size: 80px;
+  text-align: center;
+  padding-top: 40px;
+  display: inline-block;
 }
 </style>

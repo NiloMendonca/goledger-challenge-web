@@ -46,16 +46,13 @@
             <input class="inputSeller" type="text" v-model="data.cnpj" placeholder="CNPJ" v-if="type == 'create'"/>
             <input class="inputSeller" type="text" v-model="data.address" placeholder="Address"/>
             <input class="inputSeller" type="date" v-model="data.dateJoined"/>
-
-            <span id="resGreen" v-if="res=='Sucess'">{{ res }}</span>
-            <span id="resRed" v-if="res=='Erro'">{{ res }}</span>
           </span>
         </div>
 
         <div class="modalFooter">
-          <button id="buttonSave" v-if="type == 'edit' || type == 'create'" @click="save">Save</button>
-          <button id="buttonDelete" v-if="type == 'edit' || type == 'view'" @click="deleteSeller">Delete</button>
-          <button id="buttonClose" class="modalClose" @click="closeModal()">Close</button>
+          <button id="buttonFooter" v-if="type == 'edit' || type == 'create'" @click="save">Save</button>
+          <button id="buttonFooter" v-if="type == 'edit' || type == 'view'" @click="deleteSeller">Delete</button>
+          <button id="buttonFooter" class="modalClose" @click="closeModal()">Close</button>
         </div>
       </div>
     </div>
@@ -71,7 +68,6 @@ export default {
       data: [],
       cnpj: "",
       type: "",
-      res: ""
     };
   },
   methods: {
@@ -87,14 +83,14 @@ export default {
         this.$store.dispatch("putUpdateAssetSeller", {cnpj: this.data.cnpj, name: this.data.name, address: this.data.address, dateJoined: date}).then(res =>{
           this.data = JSON.parse(JSON.stringify(res.data));
           if(res.status == 200)
-            this.res = "Sucess";
+            this.closeModal();
         });
       }
       else if(this.type == "create"){
         this.$store.dispatch("postCreateAssetSeller", {cnpj: this.data.cnpj, name: this.data.name, address: this.data.address, dateJoined: date}).then(res =>{
           this.data = JSON.parse(JSON.stringify(res.data));
           if(res.status == 200)
-            this.res = "Sucess";
+            this.closeModal();
         });
       }
     },
@@ -107,7 +103,6 @@ export default {
       if(cnpj)
         this.cnpj = cnpj;
       if(type){
-        this.res = "";
         this.type = type;
         if(this.type == "create"){
           this.data.name = "";
@@ -154,18 +149,19 @@ export default {
     flex-direction: column;
     border-radius: 5px;
     z-index: 2;
+    padding: 0px 15px 0px 15px;
     @media screen and (max-width: 992px) {
       width: 90%;
     }
   }
   &Header {
-    padding: 20px 20px 10px;
+    padding: 20px 20px 0px 0px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
   }
   &Body {
-    padding: 10px 20px 10px;
+    padding: 0px 20px 10px 0px;
     overflow: auto;
     display: flex;
     flex-direction: column;
@@ -174,7 +170,7 @@ export default {
   }
   &Footer {
     padding: 10px 20px 20px;
-    text-align: center;
+    text-align: right;
   }
 }
 .textHeader {
@@ -202,49 +198,12 @@ export default {
   box-shadow: 0 0 0 0;
   outline: 0;
 }
-#resGreen {
-  font-size: 10px;
-  width: 100%;
-  text-align: center;
-  color: green;
-}
-#resRed {
-  font-size: 10px;
-  width: 100%;
-  text-align: center;
-  color: red;  
-}
-#buttonSave {
-  width: 100px;
-  height: 30px;
-  color: green;
-  border: 1px solid green;
-  border-radius: 30px;
-  margin: 0px 5px 0px 5px;
-}
-#buttonSave {
+#buttonFooter {
   width: 70px;
   height: 30px;
-  color: green;
-  border: 1px solid green;
+  color: #6300ff;
+  font-weight: bolder;
   border-radius: 30px;
-  margin: 0px 5px 0px 5px;
-}
-#buttonDelete {
-  width: 70px;
-  height: 30px;
-  color: #2c3e50;
-  border: 1px solid #2c3e50;
-  border-radius: 30px;
-  margin: 0px 5px 0px 5px;
-}
-#buttonClose {
-  width: 70px;
-  height: 30px;
-  color: red;
-  border: 1px solid red;
-  border-radius: 30px;
-  margin: 0px 5px 0px 5px;
 }
 button:focus {
   border: 2px solid black;

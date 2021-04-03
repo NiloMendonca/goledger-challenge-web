@@ -20,6 +20,7 @@ const store = new Vuex.Store({
             "name": data.name,
             "code": data.code,
             "price": data.price,
+            "categories": data.categories,
             "soldBy": { "cnpj":data.cnpj }
           }
         ]
