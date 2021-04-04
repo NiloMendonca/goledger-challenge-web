@@ -9,6 +9,7 @@
         </div>
 
         <div class="modalBody">
+          <br>
           <table>
             <tr v-for="category of categories" :key="category.name">
               <td class="tdCategoriesButtons">
@@ -26,7 +27,7 @@
         </div>
 
         <div class="modalFooter">
-          <button id="buttonClose" type="button" @click="closeModal()">close</button>
+          <button id="buttonFooter" type="button" @click="closeModal()">close</button>
         </div>
       </div>
     </div>
@@ -78,67 +79,10 @@ export default {
 
 
 <style lang="scss" scoped>
-.modal {
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 9;
-  text-align: center;
-  &Backdrop {
-    background-color: rgba(0, 0, 0, 0.3);
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-  }
-  &Dialog {
-    background-color: #ffffff;
-    position: relative;
-    width: 350px;
-    margin: 50px auto;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    z-index: 2;
-    padding: 0px 15px 0px 15px;
-    @media screen and (max-width: 992px) {
-      width: 90%;
-    }
-  }
-  &Header {
-    padding: 20px 20px 10px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    color: #2c3e50;
-  }
-  &Body {
-    padding: 10px 20px 10px;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  &Footer {
-    padding: 10px 20px 20px;
-    text-align: right;
-  }
-}
 h1 {
   text-align: center;
   width: 100%;
 }
-  .tdCategoriesTitle {
-    text-align: left;
-    overflow: hidden;
-    padding-left: 10px;
-  }
   .tdCategoriesButtons {
     text-align: right;
     overflow: hidden;
@@ -175,25 +119,4 @@ h1 {
       box-shadow: 0 0 0 0;
       outline: 0;
     }
-
-  #buttonClose {
-    width: 100px;
-    height: 30px;
-    color: #6300ff;
-    border-radius: 30px;
-    font-weight: bolder;
-  }
-    #buttonClose:focus {
-      border: 2px solid black;
-      box-shadow: 0 0 0 0;
-      outline: 0;
-    }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>

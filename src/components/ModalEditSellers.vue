@@ -11,10 +11,13 @@
         </div>
         <div class="modalHeader">
           <span class="textHeader" v-if="type == 'view'">
-            <h1 class="textHeader">{{ data.name }}</h1>
+            <h1 class="textHeader">{{ data.name }}</h1><br>
           </span>
           <span class="textHeader" v-if="type == 'edit' || type == 'create'">
             <h1 class="textHeader">Seller</h1>
+            <span class="textHeader" v-if="type == 'edit'">
+              <br>
+            </span>
           </span>
         </div>
 
@@ -47,10 +50,10 @@
           </table>
           <span v-if="type == 'edit' || type == 'create'">
             <span v-if="type == 'edit'">CNPJ:{{ data.cnpj }}</span><br>
-            <input class="inputSeller" type="text" v-model="data.name" placeholder="Name"/>
-            <input class="inputSeller" type="text" v-model="data.cnpj" placeholder="CNPJ" v-if="type == 'create'"/>
-            <input class="inputSeller" type="text" v-model="data.address" placeholder="Address"/>
-            <input class="inputSeller" type="date" v-model="data.dateJoined"/>
+            <input class="inputModal" type="text" v-model="data.name" placeholder="Name"/>
+            <input class="inputModal" type="text" v-model="data.cnpj" placeholder="CNPJ" v-if="type == 'create'"/>
+            <input class="inputModal" type="text" v-model="data.address" placeholder="Address"/>
+            <input class="inputModal" type="date" v-model="data.dateJoined"/>
           </span>
         </div>
 
@@ -131,181 +134,3 @@ export default {
   }
 };
 </script>
-
-
-<style lang="scss" scoped>
-.modal {
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 9;
-  &Backdrop {
-    background-color: rgba(0, 0, 0, 0.3);
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-  }
-  &Dialog {
-    background-color: #ffffff;
-    position: relative;
-    width: 350px;
-    min-height: 220px;
-    margin: 50px auto;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    z-index: 2;
-    padding: 0px 15px 0px 15px;
-    @media screen and (max-width: 992px) {
-      width: 90%;
-    }
-  }
-  &Header {
-    padding: 20px 20px 0px 0px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-  &Body {
-    padding: 0px 20px 10px 0px;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-  }
-  &Footer {
-    padding: 10px 20px 20px;
-    text-align: right;
-  }
-}
-#load {
-  z-index: 100;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  background-color: white;
-  border-radius: 5px;
-}
-  #titleLoad {
-    position: absolute;
-    width: 70%;
-    height: 40px;
-    border-radius: 5px;
-    left: 15%;
-    top: 20px;
-    background-color: rgba(99,0,255,.1);
-  }
-  #bodyLoad {
-    position: absolute;
-    width: 90%;
-    height: 80px;
-    border-radius: 5px;
-    left: 5%;
-    top: 80px;
-    background-color: rgba(99,0,255,.1);
-  }
-  #buttonFooterLoad {
-    position: absolute;
-    width: 80px;
-    height: 25px;
-    border-radius: 25px;
-    right: 5%;
-    bottom: 15px;
-    background-color: rgba(99,0,255,.1);
-  }
-
-  #titleLoad::before,
-  #bodyLoad::before{
-    position: absolute;
-    content: "";
-    height: 100%;
-    width: 100%;
-    border-radius: 5px;
-    background-image: linear-gradient(to right, rgba(99,0,255,.2) 0%, rgba(99,0,255,.4) 20%, rgba(99,0,255,.2) 40%, rgba(99,0,255,.2) 100%);
-    background-repeat: no-repeat;
-    background-size: 450px 400px;
-    animation: shimmer 1s linear infinite;
-  }
-  #buttonFooterLoad::before{
-    position: absolute;
-    content: "";
-    height: 100%;
-    width: 100%;
-    border-radius: 25px;
-    background-image: linear-gradient(to right, rgba(99,0,255,.2) 0%, rgba(99,0,255,.4) 20%, rgba(99,0,255,.2) 40%, rgba(99,0,255,.2) 100%);
-    background-repeat: no-repeat;
-    background-size: 450px 400px;
-    animation: shimmer 1s linear infinite;
-  }
-    #titleLoad::before,
-    #bodyLoad::before,
-    #buttonFooterLoad::before{
-      background-size: 650px 600px;
-    }
-  @keyframes shimmer {
-    0%{
-      background-position: -450px 0;
-    }
-    100%{
-      background-position: 450px 0;
-   }
-  }
-
-.textHeader {
-  text-align: center;
-  width: 100%;
-}
-  .tdCategoriesTitle {
-    text-align: left;
-    border-bottom: 1px solid rgba(44,62,80,.2);
-  }
-  .tdCategoriesButtons {
-    text-align: left;
-  }
-  
-  .inputSeller {
-    width: 200px;
-    height: 35px;
-    border-radius: 5px;
-    border: 1px solid #2c3e50;
-    font-size: 15px;
-    margin: 20px 2px 2px 2px;
-    padding: 4px;
-  }
-    .inputSeller:focus {
-      border: 2px solid black;
-      box-shadow: 0 0 0 0;
-      outline: 0;
-    }
-
-  #buttonFooter {
-    width: 70px;
-    height: 30px;
-    color: #6300ff;
-    font-weight: bolder;
-    border-radius: 30px;
-  }
-    button:focus {
-      border: 2px solid black;
-      box-shadow: 0 0 0 0;
-      outline: 0;
-    }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

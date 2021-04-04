@@ -11,7 +11,7 @@
         </div>
         <div class="modalHeader">
           <span class="textHeader" v-if="type == 'view'">
-            <h1 class="textHeader">{{ data.name }}</h1>
+            <h1 class="textHeader">{{ data.name }}</h1><br>
           </span>
           <span class="textHeader" v-if="type == 'edit' || type == 'create'">
             <h1 class="textHeader">Product</h1>
@@ -59,10 +59,10 @@
           </table>
           <span v-if="type == 'edit' || type == 'create'">
             <span v-if="type == 'edit'">Code:{{ data.code }}</span><br>
-            <input class="inputProducts" type="text" v-model="data.name" placeholder="Name"/>
-            <input class="inputProducts" type="text" v-model="data.code" placeholder="Code" v-if="type == 'create'"/>
-            <input class="inputProducts" type="number" v-model="data.price" placeholder="Price"/>
-            <select class="inputProducts" id="select" v-model="data.soldBy.cnpj">
+            <input class="inputModal" type="text" v-model="data.name" placeholder="Name"/>
+            <input class="inputModal" type="text" v-model="data.code" placeholder="Code" v-if="type == 'create'"/>
+            <input class="inputModal" type="number" v-model="data.price" placeholder="Price"/>
+            <select class="inputModalSelect" id="select" v-model="data.soldBy.cnpj">
               <option v-for="seller of sellers" :key="seller.cnpj" :value="seller.cnpj">
                 {{ seller.name }}
               </option>
@@ -203,7 +203,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 .modal {
   overflow-x: hidden;
   overflow-y: auto;
@@ -337,6 +337,7 @@ export default {
   .tdCategoriesTitle {
     text-align: left;
     border-bottom: 1px solid rgba(44,62,80,.2);
+    padding-left: 10px;
   }
   .tdCategoriesButtons {
     text-align: left;
@@ -348,7 +349,7 @@ export default {
       top: 0px;
     }
 
-  .inputProducts {
+  .inputModal {
     width: 200px;
     height: 35px;
     border-radius: 5px;
@@ -357,11 +358,32 @@ export default {
     margin: 20px 2px 2px 2px;
     padding: 4px;
   }
-    .inputProducts:focus {
+    .inputModal:focus {
       border: 2px solid black;
       box-shadow: 0 0 0 0;
       outline: 0;
     }
+
+  .inputModalSelect {
+    width: 200px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #2c3e50;
+    font-size: 15px;
+    margin: 20px 2px 2px 2px;
+    padding: 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url(data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMzA2cHgiIGhlaWdodD0iMzA2cHgiIHZpZXdCb3g9IjAgMCAzMDYgMzA2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMDYgMzA2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PHBvbHlnb24gcG9pbnRzPSIyNzAuMyw1OC42NSAxNTMsMTc1Ljk1IDM1LjcsNTguNjUgMCw5NC4zNSAxNTMsMjQ3LjM1IDMwNiw5NC4zNSIvPjwvZz48L3N2Zz4=) no-repeat;
+    background-size: 8px 8px;
+    background-position: 95% 50%;
+  }
+    .inputModalSelect:focus {
+      border: 2px solid black;
+      box-shadow: 0 0 0 0;
+      outline: 0;
+    }  
 
   #tableCategories {
     width: 200px;
@@ -396,7 +418,7 @@ export default {
     font-weight: bolder;
     border-radius: 30px;
   }
-    button:focus {
+    #buttonFooter:focus {
       border: 2px solid black;
       box-shadow: 0 0 0 0;
       outline: 0;
