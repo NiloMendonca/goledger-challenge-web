@@ -52,7 +52,7 @@
             <button @click="$refs.ModalEditProducts.openModal('', 'create')"><i class="fas fa-plus-circle"></i></button>
           </div>
 
-          <h3>Other products</h3><br>
+          <h3><br>Other products</h3><br>
           <span v-for="product of productsOther" :key="product.code">
             <Card class="cardProduct" @event="handlerProducts" :name="product.name" :code="product.code" :price="product.price" :cnpj="product.soldBy.cnpj" />
           </span>
