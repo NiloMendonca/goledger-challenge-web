@@ -1,6 +1,6 @@
 <template>
 <!--
-- filtrar select com categoria na pagina inicial
+- triangulo no select pagina inicial
 -->
   <v-app id="main">
     <header>
@@ -128,7 +128,8 @@ export default {
     },
     filterProducts(){
       var verifySeller = false;
-      for(var i=0; i<this.checkedSellers.length; i++){
+      var i=0, j=0, k=0;
+      for(i=0; i<this.checkedSellers.length; i++){
         if(this.checkedSellers[i]){
           verifySeller = true;
           break;
@@ -141,11 +142,11 @@ export default {
       for(i=0; i<this.products.length; i++){
         if(this.products[i].categories){
           var tempCheck = false;
-          for(var j=0; j<this.products[i].categories.length; j++){
+          for(j=0; j<this.products[i].categories.length; j++){
             if(this.selectedCategory != -1){
               if(this.categories[this.selectedCategory]['@key'] == this.products[i].categories[j]['@key']){
                 if(verifySeller){
-                  for(var k=0; k<this.sellers.length; k++){
+                  for(k=0; k<this.sellers.length; k++){
                     if(this.checkedSellers[k] && this.products[i].soldBy['@key'] == this.sellers[k]['@key']){
                       tempCheck = true;
                       break;
@@ -179,10 +180,39 @@ export default {
             this.productsOther.push(this.products[i]);
         }
         else{
-          if(this.selectedCategory == -1)
-            this.productsCategory.push(this.products[i]);
-          else
-            this.productsOther.push(this.products[i]);
+          var tempCheck2 = false;
+          if(this.selectedCategory == -1){
+            if(verifySeller){
+              for(k=0; k<this.sellers.length; k++){
+                if(this.checkedSellers[k] && this.products[i].soldBy['@key'] == this.sellers[k]['@key']){
+                  tempCheck2 = true;
+                  break;
+                }
+              }
+            }
+            else
+              tempCheck2 = true;
+            if(tempCheck2)
+              this.productsCategory.push(this.products[i]);
+            else
+              this.productsOther.push(this.products[i]);
+          }
+          else{
+            if(verifySeller){
+              for(k=0; k<this.sellers.length; k++){
+                if(this.checkedSellers[k] && this.products[i].soldBy['@key'] == this.sellers[k]['@key']){
+                  tempCheck2 = true;
+                  break;
+                }
+              }
+            }
+            else
+              tempCheck2 = true;
+            if(tempCheck2)
+              this.productsCategory.push(this.products[i]);
+            else
+              this.productsOther.push(this.products[i]);
+          }
         }
       }
       if(this.productsOther.length > 0)
@@ -254,6 +284,12 @@ body {
       overflow: hidden;
       position: relative;
       cursor:pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background: url(data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMzA2cHgiIGhlaWdodD0iMzA2cHgiIHZpZXdCb3g9IjAgMCAzMDYgMzA2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMDYgMzA2OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PHBvbHlnb24gcG9pbnRzPSIyNzAuMyw1OC42NSAxNTMsMTc1Ljk1IDM1LjcsNTguNjUgMCw5NC4zNSAxNTMsMjQ3LjM1IDMwNiw5NC4zNSIvPjwvZz48L3N2Zz4=) no-repeat;
+      background-size: 8px 8px;
+      background-position: 95% 50%;
     }
       #select:focus {
           box-shadow: 0 0 0 0;
@@ -326,6 +362,7 @@ body {
   }
     .cardProduct {
       display: inline-block;
+      vertical-align: middle;
       margin: 5px;
       border: 1px solid #2c3e50;
       border-radius: 8px;
@@ -344,9 +381,9 @@ body {
       text-align: center;
       padding-top: 40px;
       display: inline-block;
+      vertical-align: middle;
       position: relative;
-      left: 7px;
-      top: -79px;
+      margin: 5px;
       cursor:pointer;
     }
       #addProduct:hover {

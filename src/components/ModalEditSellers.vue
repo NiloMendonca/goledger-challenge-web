@@ -4,6 +4,11 @@
       <div class="modalBackdrop" @click="closeModal()"/>
 
       <div class="modalDialog">
+        <div id="load" v-if="load">
+          <div id="titleLoad"></div>
+          <div id="bodyLoad"></div>
+          <div id="buttonFooterLoad"></div>
+        </div>
         <div class="modalHeader">
           <span class="textHeader" v-if="type == 'view'">
             <h1 class="textHeader">{{ data.name }}</h1>
@@ -68,6 +73,7 @@ export default {
       data: [],
       cnpj: "",
       type: "",
+      load: true,
     };
   },
   methods: {
@@ -99,6 +105,7 @@ export default {
       this.show = false;
     },
     openModal(cnpj, type) {
+      this.load = true;
       this.show = true;
       if(cnpj)
         this.cnpj = cnpj;
@@ -112,9 +119,14 @@ export default {
         }
       }
 
-      this.$store.dispatch("postReadAsset", {type:"seller", code:cnpj}).then(res =>{
-        this.data = JSON.parse(JSON.stringify(res.data));
-      });
+      if(this.type == "view" || this.type == "edit"){
+        this.$store.dispatch("postReadAsset", {type:"seller", code:cnpj}).then(res =>{
+          this.data = JSON.parse(JSON.stringify(res.data));
+          this.load = false;
+        });
+      }
+      else
+        this.load = false;
     }
   }
 };
@@ -144,6 +156,7 @@ export default {
     background-color: #ffffff;
     position: relative;
     width: 350px;
+    min-height: 220px;
     margin: 50px auto;
     display: flex;
     flex-direction: column;
@@ -173,6 +186,81 @@ export default {
     text-align: right;
   }
 }
+#load {
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: white;
+  border-radius: 5px;
+}
+  #titleLoad {
+    position: absolute;
+    width: 70%;
+    height: 40px;
+    border-radius: 5px;
+    left: 15%;
+    top: 20px;
+    background-color: rgba(99,0,255,.1);
+  }
+  #bodyLoad {
+    position: absolute;
+    width: 90%;
+    height: 80px;
+    border-radius: 5px;
+    left: 5%;
+    top: 80px;
+    background-color: rgba(99,0,255,.1);
+  }
+  #buttonFooterLoad {
+    position: absolute;
+    width: 80px;
+    height: 25px;
+    border-radius: 25px;
+    right: 5%;
+    bottom: 15px;
+    background-color: rgba(99,0,255,.1);
+  }
+
+  #titleLoad::before,
+  #bodyLoad::before{
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    background-image: linear-gradient(to right, rgba(99,0,255,.2) 0%, rgba(99,0,255,.4) 20%, rgba(99,0,255,.2) 40%, rgba(99,0,255,.2) 100%);
+    background-repeat: no-repeat;
+    background-size: 450px 400px;
+    animation: shimmer 1s linear infinite;
+  }
+  #buttonFooterLoad::before{
+    position: absolute;
+    content: "";
+    height: 100%;
+    width: 100%;
+    border-radius: 25px;
+    background-image: linear-gradient(to right, rgba(99,0,255,.2) 0%, rgba(99,0,255,.4) 20%, rgba(99,0,255,.2) 40%, rgba(99,0,255,.2) 100%);
+    background-repeat: no-repeat;
+    background-size: 450px 400px;
+    animation: shimmer 1s linear infinite;
+  }
+    #titleLoad::before,
+    #bodyLoad::before,
+    #buttonFooterLoad::before{
+      background-size: 650px 600px;
+    }
+  @keyframes shimmer {
+    0%{
+      background-position: -450px 0;
+    }
+    100%{
+      background-position: 450px 0;
+   }
+  }
+
 .textHeader {
   text-align: center;
   width: 100%;
